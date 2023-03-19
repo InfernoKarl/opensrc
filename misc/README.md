@@ -55,3 +55,10 @@ https://www.roblox.com/games/11811023210/Ninja-Ryu-NEW
 
 ### [Infinite Wheel Spins](/misc/Scripts/infspins.lua) <sub><sup>`v1.0.0` *(Updated: 18/03/2023)*</sup></sub>
 Execute to infinitely spin the prize wheel. Working as of *18/03/2023*
+
+### Abyss World
+https://www.roblox.com/games/12151453277/Abyss-World
+
+### [No Fall Damage](/misc/Scripts/nofall.lua) <sub><sup>`v1.0.0` *(Updated: 18/03/2023)*</sup></sub>
+Execute for no fall damage. Working as of *19/03/2023*
+
