@@ -1,3 +1,9 @@
+# Hi, I'm Karl!
+## This repository is a centralized compilation of all the scripts I write and release for various games. If you'd like to request any scripts for games or recommend games to write scripts for, you can find my discord on my [profile overview](https://github.com/InfernoKarl). If you'd like to make a pull request to fix any scripts/fix my awful code, I'm always open to contributors!
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
 ## **Current Games**
 
 ### [Arcane Reborn](https://github.com/InfernoKarl/opensrc/tree/main/ArcaneReborn)
