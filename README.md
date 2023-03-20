@@ -20,3 +20,4 @@
 &nbsp;
 
 ### [MISCELLANEOUS](https://github.com/InfernoKarl/opensrc/tree/main/misc)
+##### ^ Random games that I didn't wanna make an entire repo for but wanted to post scripts for
