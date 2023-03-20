@@ -59,6 +59,11 @@ Execute to infinitely spin the prize wheel. Working as of *18/03/2023*
 ### Abyss World
 https://www.roblox.com/games/12151453277/Abyss-World
 
-### [No Fall Damage](/misc/Scripts/nofall.lua) <sub><sup>`v1.0.0` *(Updated: 18/03/2023)*</sup></sub>
+### [No Fall Damage](/misc/Scripts/nofall.lua) <sub><sup>`v1.0.0` *(Updated: 19/03/2023)*</sup></sub>
 Execute for no fall damage. Working as of *19/03/2023*
 
+### +1 Jump Every Second
+https://www.roblox.com/games/9834528893/1-Jump-Every-Second
+
+### [Win Farm](/misc/Scripts/winfarm.lua) <sub><sup>`v1.0.0` *(Updated: 19/03/2023)*</sup></sub>
+Execute to loop-tp to the end of the tower. Working as of *19/03/2023*
