@@ -1,6 +1,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local InGameFolder = ReplicatedStorage.InGameFolder
 local categories = {"Accessory", "Armors", "Items", "Pants", "Shields", "Shirt", "Weapons"}
+game:GetService("Players").LocalPlayer.playerstat.Level.Value = 100
 
 local function fireRemote(modelName)
     local args = {
