@@ -12,6 +12,6 @@ Execute to get all items in the game, also unlocks all level limits. Also prints
 &nbsp;
 &nbsp;
 
-### [Script Hub for all functions](/RPG-elevator/scripts/scripthub.lua)
+### [Script Hub for all functions](/RPG-elevator/Scripts/scripthub.lua)
 **HAS ALL FEATURES ABOVE + ANTICHEAT BYPASS + LEVEL SPOOF** - Use the below loadstring
 ``loadstring(game:HttpGet('https://raw.githubusercontent.com/InfernoKarl/opensrc/main/RPG-elevator/Scripts/scripthub.lua'))()``
