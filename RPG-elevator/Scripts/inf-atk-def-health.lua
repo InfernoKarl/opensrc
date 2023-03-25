@@ -1,6 +1,8 @@
 local toggle = false
 local player = game:GetService("Players").LocalPlayer
 local ohInstance1 = player.Items["A Beginner's Necklace"] -- Modify with whatever accessory you want to spam equip instead (if you already got rid of the starter necklace)
+game:GetService("Players").LocalPlayer.playerstat.Level.Value = 100
+game:GetService("Players").LocalPlayer.PlayerGui.Inventory.PlayerStat.LocalScript:Destroy()
 
 local function toggleAccessory()
     while toggle do
