@@ -1,5 +1,5 @@
 # Hi, I'm Karl!
-## This repository is a centralized compilation of all the scripts I write and release for various games. If you'd like to request any scripts for games or recommend games to write scripts for, you can find my discord on my [profile overview](https://github.com/InfernoKarl). If you'd like to make a pull request to fix any scripts/fix my awful code, I'm always open to contributors! I also now have a [Discord Server](https://discord.gg/hNX8VxcjMF), so if you'd like to contact me or stay updated through there then that'd be awesome too.
+## This repository is a centralized compilation of all the scripts I write and release for various games. If you'd like to request any scripts for games or recommend games to write scripts for, you can find my discord on my [profile overview](https://github.com/InfernoKarl). If you'd like to make a pull request to fix any scripts/fix my awful code, I'm always open to contributors! I also now have a [Discord Server](https://discord.gg/hNX8VxcjMF), so if you'd like to contact me/stay updated through there then that'd be awesome too.
 &nbsp;
 &nbsp;
 &nbsp;
