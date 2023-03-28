@@ -13,6 +13,9 @@ Execute to sell everything in your inventory that isn't equipped. **MUST BE TALK
 ### [Hitbox Extender](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 27/03/2023)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
+### [Freeze Enemies](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 27/03/2023)*</sup></sub>
+DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
+
 &nbsp;
 &nbsp;
 &nbsp;
