@@ -19,6 +19,9 @@ DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 ### [Equip Any Item Regardless of Level](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 28/03/2023)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
+### [Travelling NPC Notifier](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 28/03/2023)*</sup></sub>
+DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
+
 &nbsp;
 &nbsp;
 &nbsp;
