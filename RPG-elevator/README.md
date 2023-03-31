@@ -10,23 +10,14 @@ Execute to get all items in the game, also unlocks all level limits. Also prints
 ### [Autosell](/RPG-elevator/Scripts/autosell.lua) <sub><sup>`v1.0.0` *(Updated: 26/03/2023)*</sup></sub>
 Execute to sell everything in your inventory that isn't equipped. **MUST BE TALKING TO THE SELLING NPC**. Working as of *26/03/2023*.
 
-### [Hitbox Extender](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 27/03/2023)*</sup></sub>
+### ~~[Hitbox Extender](https://discord.gg/hNX8VxcjMF)~~ <sub><sup>`v1.0.0` *(PATCHED FOR NOW)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
 ### [Freeze Enemies](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 27/03/2023)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
-### [Equip Any Item Regardless of Level](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 28/03/2023)*</sup></sub>
+### ~~[Equip Any Item Regardless of Level](https://discord.gg/hNX8VxcjMF)~~ <sub><sup>`v1.0.0` *(PATCHED FOR NOW)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
 ### [Travelling NPC Notifier](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 28/03/2023)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
-
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-
-### ~~[Script Hub for all functions](/RPG-elevator/Scripts/scripthub.lua)~~ <sub><sup>*(PATCHED FOR NOW)*</sup></sub>
-**HAS ALL FEATURES ABOVE + ANTICHEAT BYPASS + LEVEL SPOOF** - Use the below loadstring
-``loadstring(game:HttpGet('https://raw.githubusercontent.com/InfernoKarl/opensrc/main/RPG-elevator/Scripts/scripthub.lua'))()``
