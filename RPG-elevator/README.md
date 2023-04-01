@@ -13,7 +13,7 @@ Execute to sell everything in your inventory that isn't equipped. **MUST BE TALK
 ### ~~[Hitbox Extender](https://discord.gg/hNX8VxcjMF)~~ <sub><sup>`v1.0.0` *(PATCHED FOR NOW)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
-### [Freeze Enemies](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 30/03/2023)*</sup></sub>
+### [Freeze Enemies](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 1/04/2023)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
 ### ~~[Equip Any Item Regardless of Level](https://discord.gg/hNX8VxcjMF)~~ <sub><sup>`v1.0.0` *(PATCHED FOR NOW)*</sup></sub>
@@ -22,7 +22,7 @@ DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 ### [Travelling NPC Notifier](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 28/03/2023)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
-### [Infinite Dodging/Rolling](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 30/03/2023)*</sup></sub>
+### ~~[Infinite Dodging/Rolling](https://discord.gg/hNX8VxcjMF)~~ <sub><sup>`v1.0.0` *(PATCHED)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
 ### [Disarm all Melee Enemies](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 30/03/2023)*</sup></sub>
