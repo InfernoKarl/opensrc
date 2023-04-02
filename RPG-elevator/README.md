@@ -25,7 +25,7 @@ DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 ### ~~[Infinite Dodging/Rolling](https://discord.gg/hNX8VxcjMF)~~ <sub><sup>`v1.0.0` *(PATCHED)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
-### [Disarm all Melee Enemies](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 30/03/2023)*</sup></sub>
+### ~~[Disarm all Melee Enemies](https://discord.gg/hNX8VxcjMF)~~ <sub><sup>`v1.0.0` *(PATCHED FOR NOW)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
 ### [Fly/Speed](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 1/04/2023)*</sup></sub>
