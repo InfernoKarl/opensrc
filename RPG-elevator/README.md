@@ -27,3 +27,15 @@ DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
 ### [Disarm all Melee Enemies](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 30/03/2023)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
+
+### [Fly/Speed](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 1/04/2023)*</sup></sub>
+DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
+
+### [Instant NPC Interactions](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 1/04/2023)*</sup></sub>
+DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
+
+### [Item Pickup Aura](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 1/04/2023)*</sup></sub>
+DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
+
+### [Fullbright](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 1/04/2023)*</sup></sub>
+DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
