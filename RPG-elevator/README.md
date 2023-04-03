@@ -40,10 +40,10 @@ DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 ### [Fullbright](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 1/04/2023)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
-### [Spam Punch](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 2/04/2023)*</sup></sub>
+### [Spam Punch](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(PATCHED)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
-### [God Mode While Punching](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 2/04/2023)*</sup></sub>
+### [God Mode While Punching](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(PATCHED)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
 ### [Anti-Fire](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 2/04/2023)*</sup></sub>
