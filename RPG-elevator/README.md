@@ -52,3 +52,9 @@ DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 ### [Bring Mobs](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 3/04/2023)*</sup></sub>
 DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
 
+### [Infinite Money](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 5/04/2023)*</sup></sub>
+DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
+
+### [No Jump Cooldown](https://discord.gg/hNX8VxcjMF) <sub><sup>`v1.0.0` *(Updated: 5/04/2023)*</sup></sub>
+DISCORD EXCLUSIVE - JOIN DISCORD SERVER TO GET IT
+
