@@ -14,6 +14,7 @@
 ### [Fruit Warriors](https://github.com/InfernoKarl/opensrc/tree/main/fruitwarriors)
 ### [Slasher Blade](https://github.com/InfernoKarl/opensrc/tree/main/slasherblade)
 ### [RPG Elevator](https://github.com/InfernoKarl/opensrc/tree/main/RPG-elevator)
+### [Soul Cultivation](https://github.com/InfernoKarl/opensrc/tree/main/SoulCultivation)
 
 &nbsp;
 &nbsp;
