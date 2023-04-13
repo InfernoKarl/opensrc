@@ -24,4 +24,8 @@ local initialTweenInfo = TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDi
 local initialTween = TweenService:Create(player.Character.HumanoidRootPart, initialTweenInfo, {CFrame = FODposition})
 
 initialTween:Play()
-teleportAndTrigger()
+
+while true do
+    teleportAndTrigger()
+    wait(1)
+end
