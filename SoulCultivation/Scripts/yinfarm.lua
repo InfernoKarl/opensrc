@@ -1,6 +1,3 @@
--- Yin Fruit
-while wait(1) do
-
 local player = game:GetService("Players").LocalPlayer
 local TweenService = game:GetService("TweenService")
 
@@ -34,4 +31,7 @@ local initialTween = TweenService:Create(player.Character.HumanoidRootPart, init
 initialTween:Play()
 teleportAndTrigger()
 
+while true do
+    teleportAndTrigger()
+    wait(1)
 end
