@@ -15,6 +15,7 @@
 ### [Slasher Blade](https://github.com/InfernoKarl/opensrc/tree/main/slasherblade)
 ### [RPG Elevator](https://github.com/InfernoKarl/opensrc/tree/main/RPG-elevator)
 ### [Soul Cultivation](https://github.com/InfernoKarl/opensrc/tree/main/SoulCultivation)
+### [Blade Ball](https://github.com/InfernoKarl/opensrc/tree/main/BladeBall)
 
 &nbsp;
 &nbsp;
