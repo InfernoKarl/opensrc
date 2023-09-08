@@ -11,7 +11,7 @@ local function onCharacterAdded(newCharacter)
     character = newCharacter
 end
 
-localPlayer.CharacterAdded:Connect(onCharacterAdded)
+player.CharacterAdded:Connect(onCharacterAdded)
 
 local focusedBall = nil  
 
