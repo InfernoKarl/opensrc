@@ -7,6 +7,12 @@ local ballsFolder = workspace:WaitForChild("Balls")
 
 print("Script successfully ran.")
 
+local function onCharacterAdded(newCharacter)
+    character = newCharacter
+end
+
+localPlayer.CharacterAdded:Connect(onCharacterAdded)
+
 local focusedBall = nil  
 
 local function chooseNewFocusedBall()
