@@ -4,10 +4,12 @@ local function isPlayerOnMobile()
     return UserInputService.TouchEnabled
 end
 
+local Rayfield
+
 if isPlayerOnMobile() then
-    local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hosvile/Refinement/main/MC%3AArrayfield%20Library'))()
+    Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hosvile/Refinement/main/MC%3AArrayfield%20Library'))()
 else
-    local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+    Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 end
 
 local workspace = game:GetService("Workspace")
