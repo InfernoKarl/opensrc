@@ -1,8 +1,21 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local workspace = game:GetService("Workspace")
 local players = game:GetService("Players")
-local localPlayer = players.LocalPlayer
 local replicatedStorage = game:GetService("ReplicatedStorage")
+local localPlayer = players.LocalPlayer
+local BASE_THRESHOLD = 0.15
+local VELOCITY_SCALING_FACTOR_FAST = 0.050
+local VELOCITY_SCALING_FACTOR_SLOW = 0.1
+local responses = {
+    "lol what", "??", "wdym", "bru what", "mad cuz bad", "skill issue", "cry"
+}
+local gameEndResponses = {
+    "ggs", "gg :3", "good game", "ggs yall", "wp", "ggs man"
+}
+local keywords = {
+    "auto parry", "auto", "cheating", "hacking"
+}
+
 local isRunning = false
 local UseRage = false
 local UseRapture = false
@@ -13,32 +26,6 @@ local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
 local ballsFolder = workspace:WaitForChild("Balls")
 local parryButtonPress = replicatedStorage.Remotes.ParryButtonPress
 local abilityButtonPress = replicatedStorage.Remotes.AbilityButtonPress
-local BASE_THRESHOLD = 0.15
-local VELOCITY_SCALING_FACTOR_FAST = 0.050
-local VELOCITY_SCALING_FACTOR_SLOW = 0.1
-local responses = {
-    "lol what",
-    "??",
-    "wdym",
-    "bru what",
-    "mad cuz bad",
-    "skill issue",
-    "cry"
-}
-local gameEndResponses = {
-    "ggs",
-    "gg :3",
-    "good game",
-    "ggs yall",
-    "wp",
-    "ggs man"
-}
-local keywords = {
-    "auto parry",
-    "auto",
-    "cheating",
-    "hacking"
-}
 
 
 local Window = Rayfield:CreateWindow({
@@ -234,20 +221,16 @@ local AutoRagingDeflect = AutoParry:CreateToggle({
 
 
 local CloseFighting = AutoParry:CreateSection("Close Fighting")
-local SpamParry = AutoParry:CreateKeybind({
-   Name = "Spam Parry (Hold)",
-   CurrentKeybind = "C",
-   HoldToInteract = true,
-   Flag = "ToggleParrySpam", 
-   Callback = function(Keybind)
-            local function click(a)
-    game:GetService("VirtualInputManager"):SendMouseButtonEvent(a.AbsolutePosition.X+a.AbsoluteSize.X/2,a.AbsolutePosition.Y+50,0,true,a,1)
-    game:GetService("VirtualInputManager"):SendMouseButtonEvent(a.AbsolutePosition.X+a.AbsoluteSize.X/2,a.AbsolutePosition.Y+50,0,false,a,1)
-end
-
-click(game:GetService("Players").LocalPlayer.PlayerGui.Hotbar.Block.Pressable1)
-   end,
-})
+ local SpamParry = AutoParry:CreateKeybind({
+    Name = "Spam Parry (Hold)",
+    CurrentKeybind = "C",
+    HoldToInteract = true,
+    Flag = "ToggleParrySpam", 
+    Callback = function(Keybind)
+        parryButtonPress:Fire()
+    end,
+ })
+ 
 
 local Configuration = AutoParry:CreateSection("Configuration")
 
