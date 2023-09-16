@@ -1,4 +1,15 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local UserInputService = game:GetService("UserInputService")
+
+local function isPlayerOnMobile()
+    return UserInputService.TouchEnabled
+end
+
+if isPlayerOnMobile() then
+    local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hosvile/Refinement/main/MC%3AArrayfield%20Library'))()
+else
+    local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+end
+
 local workspace = game:GetService("Workspace")
 local players = game:GetService("Players")
 local replicatedStorage = game:GetService("ReplicatedStorage")
