@@ -1,6 +1,10 @@
 local UserInputService = game:GetService("UserInputService")
 
 local function isPlayerOnMobile()
+    if UserInputService.TouchEnabled and (UserInputService.KeyboardEnabled or UserInputService.GamepadEnabled) then
+        return false
+    end
+    
     return UserInputService.TouchEnabled
 end
 
