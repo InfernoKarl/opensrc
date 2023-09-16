@@ -167,6 +167,9 @@ end
         local ball = focusedBall
         local distanceToPlayer = (ball.Position - charPos).Magnitude
         local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
+        if ball.zoomies.VectorVelocity == nil or (ball.zoomies.VectorVelocity.x == -0 or ball.zoomies.VectorVelocity.x == 0 or ball.zoomies.VectorVelocity.y == -0 or ball.zoomies.VectorVelocity.y == 0 or ball.zoomies.VectorVelocity.z == -0 or ball.zoomies.VectorVelocity.z == 0) then
+            return 
+        end
         
         if distanceToPlayer < 10 then
             parryButtonPress:Fire()
