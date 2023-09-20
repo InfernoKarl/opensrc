@@ -88,7 +88,7 @@ local function getPlayerPing()
 end
 
 local function mapPingToDistance(ping)
-    local multiplier = 0.13
+    local multiplier = 0.15
     local offset = 15
     return math.min(100, math.max(0, ping * multiplier + offset))
 end
