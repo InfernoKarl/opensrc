@@ -125,16 +125,15 @@ local function getDynamicThreshold(ballVelocityMagnitude)
 end
 
 local function timeUntilImpact(ballVelocity, distanceToPlayer, playerVelocity)
-    if character.HumanoidRootPart then
-        local directionToPlayer = (character.HumanoidRootPart.Position - focusedBall.Position).Unit
-        local velocityTowardsPlayer = ballVelocity:Dot(directionToPlayer) - playerVelocity:Dot(directionToPlayer)
-        
-        if velocityTowardsPlayer <= 0 then
-            return math.huge
-        end
-        
-        return (distanceToPlayer - sliderValue) / velocityTowardsPlayer
+    if not character then return end
+    local directionToPlayer = (character.HumanoidRootPart.Position - focusedBall.Position).Unit
+    local velocityTowardsPlayer = ballVelocity:Dot(directionToPlayer) - playerVelocity:Dot(directionToPlayer)
+    
+    if velocityTowardsPlayer <= 0 then
+        return math.huge
     end
+    
+    return (distanceToPlayer - sliderValue) / velocityTowardsPlayer
 end
 
 local function updateDistanceVisualizer()
