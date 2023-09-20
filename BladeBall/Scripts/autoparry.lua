@@ -1,48 +1,41 @@
-local UserInputService = game:GetService("UserInputService")
-
-local function isPlayerOnMobile()
-    if UserInputService.TouchEnabled and (UserInputService.KeyboardEnabled or UserInputService.GamepadEnabled) then
-        return false
-    end
-    
-    return UserInputService.TouchEnabled
-end
-
-local Rayfield
-
-if isPlayerOnMobile() then
-    Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hosvile/Refinement/main/MC%3AArrayfield%20Library'))()
-else
-    Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-end
-
 local workspace = game:GetService("Workspace")
 local players = game:GetService("Players")
 local replicatedStorage = game:GetService("ReplicatedStorage")
 local localPlayer = players.LocalPlayer
-local BASE_THRESHOLD = 0.15
+local BASE_THRESHOLD = 0.2
 local VELOCITY_SCALING_FACTOR_FAST = 0.050
 local VELOCITY_SCALING_FACTOR_SLOW = 0.1
-local responses = {
-    "lol what", "??", "wdym", "bru what", "mad cuz bad", "skill issue", "cry"
-}
-local gameEndResponses = {
-    "ggs", "gg :3", "good game", "ggs yall", "wp", "ggs man"
-}
-local keywords = {
-    "auto parry", "auto", "cheating", "hacking"
-}
-
-local isRunning = false
-local UseRage = false
-local UseRapture = false
-local sliderValue = 20
-local ggdebounce = false
+local UserInputService = game:GetService("UserInputService")
+local responses = {"lol what", "??", "wdym", "bru what", "mad cuz bad", "skill issue", "cry"}
+local gameEndResponses = {"ggs", "gg :3", "good game", "ggs yall", "wp", "ggs man"}
+local keywords = {"auto parry", "auto", "cheating", "hacking"}
+local heartbeatConnection
 local focusedBall, displayBall = nil, nil
 local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
 local ballsFolder = workspace:WaitForChild("Balls")
 local parryButtonPress = replicatedStorage.Remotes.ParryButtonPress
 local abilityButtonPress = replicatedStorage.Remotes.AbilityButtonPress
+local sliderValue = 20
+local distanceVisualizer = nil
+local isRunning = false
+local notifyparried = false
+local PlayerGui = localPlayer:WaitForChild("PlayerGui")
+local Hotbar = PlayerGui:WaitForChild("Hotbar")
+local UseRage = false
+
+local uigrad1 = Hotbar.Block.border1.UIGradient
+local uigrad2 = Hotbar.Ability.border2.UIGradient
+
+
+local function isPlayerOnMobile()
+    return UserInputService.TouchEnabled and not (UserInputService.KeyboardEnabled or UserInputService.GamepadEnabled)
+end
+
+local RayfieldURL = isPlayerOnMobile() and 
+                    'https://raw.githubusercontent.com/Hosvile/Refinement/main/MC%3AArrayfield%20Library' or 
+                    'https://sirius.menu/rayfield'
+
+local Rayfield = loadstring(game:HttpGet(RayfieldURL))()
 
 
 local Window = Rayfield:CreateWindow({
@@ -73,26 +66,33 @@ local Window = Rayfield:CreateWindow({
 
 local AutoParry = Window:CreateTab("Auto Parry", 13014537525)
 
-local function startAutoParry()
-    local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
-    local ballsFolder = workspace:WaitForChild("Balls")
-    local parryButtonPress = replicatedStorage.Remotes.ParryButtonPress
-    local abilityButtonPress = replicatedStorage.Remotes.AbilityButtonPress
+if character then
+    print("Character found.")
+else
+    print("Character not found.")
+    return
+end
 
-    print("Script successfully ran.")
+local function notify(title, content, duration)
+    Rayfield:Notify({
+        Title = title,
+        Content = content,
+        Duration = duration or 0.7,
+        Image = 10010348543
+    })
+end
 
-    local function onCharacterAdded(newCharacter)
-        character = newCharacter
-    end
-    localPlayer.CharacterAdded:Connect(onCharacterAdded)
+local function getPlayerPing()
+    local ping = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()
+    return ping
+end
 
-    if character then
-        print("Character found.")
-    else
-        print("Character not found.")
-        return
-    end
-    
+local function mapPingToDistance(ping)
+    local multiplier = 0.13
+    local offset = 15
+    return math.min(100, math.max(0, ping * multiplier + offset))
+end
+
 
 local function chooseNewFocusedBall()
     local balls = ballsFolder:GetChildren()
@@ -110,30 +110,22 @@ local function chooseNewFocusedBall()
     
     if focusedBall == nil then
         print("Debug: Could not find a ball that's the realBall or has a target.")
+        wait(3)
+        chooseNewFocusedBall()
     end
     return focusedBall
 end
 
-
-
-
-
-    chooseNewFocusedBall()
-
-    local BASE_THRESHOLD = 0.15
-    local VELOCITY_SCALING_FACTOR_FAST = 0.050
-    local VELOCITY_SCALING_FACTOR_SLOW = 0.1
-
-    local function getDynamicThreshold(ballVelocityMagnitude)
-        if ballVelocityMagnitude > 60 then
-            print("Going Fast!")
-            return math.max(0.20, BASE_THRESHOLD - (ballVelocityMagnitude * VELOCITY_SCALING_FACTOR_FAST))
-        else
-            return math.min(0.01, BASE_THRESHOLD + (ballVelocityMagnitude * VELOCITY_SCALING_FACTOR_SLOW))
-        end
+local function getDynamicThreshold(ballVelocityMagnitude)
+    if ballVelocityMagnitude > 60 then
+        return math.max(0.20, BASE_THRESHOLD - (ballVelocityMagnitude * VELOCITY_SCALING_FACTOR_FAST))
+    else
+        return math.min(0.01, BASE_THRESHOLD + (ballVelocityMagnitude * VELOCITY_SCALING_FACTOR_SLOW))
     end
+end
 
-    local function timeUntilImpact(ballVelocity, distanceToPlayer, playerVelocity)
+local function timeUntilImpact(ballVelocity, distanceToPlayer, playerVelocity)
+    if character.HumanoidRootPart then
         local directionToPlayer = (character.HumanoidRootPart.Position - focusedBall.Position).Unit
         local velocityTowardsPlayer = ballVelocity:Dot(directionToPlayer) - playerVelocity:Dot(directionToPlayer)
         
@@ -143,70 +135,133 @@ end
         
         return (distanceToPlayer - sliderValue) / velocityTowardsPlayer
     end
+end
 
-    local function isWalkSpeedZero()
-        local humanoid = character:FindFirstChildOfClass("Humanoid")
-        if humanoid then
-            return humanoid.WalkSpeed == 0
+local function updateDistanceVisualizer()
+    local charPos = character and character.PrimaryPart and character.PrimaryPart.Position
+    if charPos and focusedBall then
+        if distanceVisualizer then
+            distanceVisualizer:Destroy()
         end
-        return false
+
+        local timeToImpactValue = timeUntilImpact(focusedBall.Velocity, (focusedBall.Position - charPos).Magnitude, character.PrimaryPart.Velocity)
+        local ballFuturePosition = focusedBall.Position + focusedBall.Velocity * timeToImpactValue
+
+        distanceVisualizer = Instance.new("Part")
+        distanceVisualizer.Size = Vector3.new(1, 1, 1)
+        distanceVisualizer.Anchored = true
+        distanceVisualizer.CanCollide = false
+        distanceVisualizer.Position = ballFuturePosition
+        distanceVisualizer.Parent = workspace    
+    end
+end
+
+
+local function checkIfTarget()
+    for _, v in pairs(ballsFolder:GetChildren()) do
+        if v:IsA("Part") and v.BrickColor == BrickColor.new("Really red") then 
+            print("Ball is targetting player.")
+            return true 
+        end 
+    end 
+    return false
+end
+
+local function isCooldownInEffect(uigradient)
+    return uigradient.Offset.Y < 0.5
+end
+
+local function checkBallDistance()
+    if not character or not checkIfTarget() then return end
+
+    local charPos = character.PrimaryPart.Position
+    local charVel = character.PrimaryPart.Velocity
+
+    if focusedBall and not focusedBall.Parent then
+        print("Focused ball lost parent. Choosing a new focused ball.")
+        chooseNewFocusedBall()
+    end
+    if not focusedBall then 
+        print("No focused ball.")
+        chooseNewFocusedBall()
     end
 
+    local ball = focusedBall
+    local distanceToPlayer = (ball.Position - charPos).Magnitude
+    local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
+    if ball.zoomies.VectorVelocity == nil or (ball.zoomies.VectorVelocity.x == -0 or ball.zoomies.VectorVelocity.x == 0 or ball.zoomies.VectorVelocity.y == -0 or ball.zoomies.VectorVelocity.y == 0 or ball.zoomies.VectorVelocity.z == -0 or ball.zoomies.VectorVelocity.z == 0) then
+        return 
+    end
 
-    local function checkBallDistance()
-        if not character or not character:FindFirstChild("Highlight") then return end
+    if distanceToPlayer <= 10 then
+        parryButtonPress:Fire()
+        task.wait()
+    end
 
-        local charPos = character.PrimaryPart.Position
-        local charVel = character.PrimaryPart.Velocity
-
-        if focusedBall and not focusedBall.Parent then
-            print("Focused ball lost parent. Choosing a new focused ball.")
-            chooseNewFocusedBall()
-        end
-        if not focusedBall then 
-            print("No focused ball.")
-            chooseNewFocusedBall()
-        end
-
-        local ball = focusedBall
-        local distanceToPlayer = (ball.Position - charPos).Magnitude
-        local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
-        if ball.zoomies.VectorVelocity == nil or (ball.zoomies.VectorVelocity.x == -0 or ball.zoomies.VectorVelocity.x == 0 or ball.zoomies.VectorVelocity.y == -0 or ball.zoomies.VectorVelocity.y == 0 or ball.zoomies.VectorVelocity.z == -0 or ball.zoomies.VectorVelocity.z == 0) then
-            return 
-        end
-        
-        if distanceToPlayer < 10 then
-            parryButtonPress:Fire()
-        end
-        local isCheckingRage = false
-
-        if timeUntilImpact(ball.Velocity, distanceToPlayer, charVel) < getDynamicThreshold(ballVelocityTowardsPlayer) then
-            if character.Abilities["Raging Deflection"].Enabled and UseRage == true then
-                if not isCheckingRage then
-                    isCheckingRage = true
-                    abilityButtonPress:Fire()
-                    if not isWalkSpeedZero() then
-                        parryButtonPress:Fire()
-                    end
-                    isCheckingRage = false
-                end
-            else
-                parryButtonPress:Fire()
+    if timeUntilImpact(ball.Velocity, distanceToPlayer, charVel) < getDynamicThreshold(ballVelocityTowardsPlayer) then
+        if (character.Abilities["Raging Deflection"].Enabled or character.Abilities["Rapture"].Enabled) and UseRage == true then
+            if not isCooldownInEffect(uigrad2) then
+                abilityButtonPress:Fire()
             end
+
+            if isCooldownInEffect(uigrad2) and not isCooldownInEffect(uigrad1) then
+                parryButtonPress:Fire()
+                if notifyparried == true then
+                    notify("Auto Parry", "Manually Parried Ball (Ability on CD)", 0.3)
+                end
+            end
+
+        elseif not isCooldownInEffect(uigrad1) then
+            print(isCooldownInEffect(uigrad1))
+            parryButtonPress:Fire()
+            if notifyparried == true then
+                notify("Auto Parry", "Automatically Parried Ball", 0.3)
+            end
+            task.wait(0.5)
         end
     end
+end
 
 
-    heartbeatConnection = game:GetService("RunService").Heartbeat:Connect(function()
+local function autoParryCoroutine()
+    while isRunning do
+        local ping = getPlayerPing()
+        sliderValue = mapPingToDistance(ping)
+        
         checkBallDistance()
-    end)
+        updateDistanceVisualizer()
+        task.wait()
+    end
+end
+
+
+localPlayer.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    chooseNewFocusedBall()
+    updateDistanceVisualizer()
+end)
+
+localPlayer.CharacterRemoving:Connect(function()
+    if distanceVisualizer then
+        distanceVisualizer:Destroy()
+        distanceVisualizer = nil
+    end
+end)
+
+
+
+local function startAutoParry()
+    print("Script successfully ran.")
+    
+    chooseNewFocusedBall()
+    
+    isRunning = true
+    local co = coroutine.create(autoParryCoroutine)
+    coroutine.resume(co)
 end
 
 local function stopAutoParry()
-    if heartbeatConnection then
-        heartbeatConnection:Disconnect()
-        heartbeatConnection = nil
-    end
+    isRunning = false
 end
 
 
@@ -219,19 +274,29 @@ local AutoParryToggle = AutoParry:CreateToggle({
     Callback = function(Value)
         if Value then
             startAutoParry()
+            notify("Auto Parry", "Auto Parry has been started", 1)
         else
             stopAutoParry()
+            notify("Auto Parry", "Auto Parry has been disabled", 1)
         end
     end,
 })
 
 
 local AutoRagingDeflect = AutoParry:CreateToggle({
-    Name = "Auto Rage Parry (MUST EQUIP RAGING DEFLECT)",
+    Name = "Auto Rage Parry/Rapture Parry (MUST EQUIP PROPER ABILITY)",
     CurrentValue = false,
     Flag = "AutoRagingDeflectFlag",
     Callback = function(Value)
-        UseRage = Value
+        if Value then
+            startAutoParry()
+            UseRage = Value
+            notify("Auto Parry", "Auto Parry with Ability has been started", 1)
+        else
+            stopAutoParry()
+            UseRage = Value
+            notify("Auto Parry", "Auto Parry with Ability has been disabled", 1)
+        end
     end,
 })
 
@@ -250,19 +315,6 @@ local CloseFighting = AutoParry:CreateSection("Close Fighting")
  
 
 local Configuration = AutoParry:CreateSection("Configuration")
-
-local DistanceSlider = AutoParry:CreateSlider({
-   Name = "Distance Configuration",
-   Range = {0, 100},
-   Increment = 1,
-   Suffix = "Distance",
-   CurrentValue = 20,
-   Flag = "DistanceSlider",
-   Callback = function(Value)
-       sliderValue = Value
-   end,
-})
-
 
 local ToggleParryOn = AutoParry:CreateKeybind({
    Name = "Toggle Parry On (Bind)",
@@ -306,42 +358,18 @@ local AutoResponseToggle = AutoParry:CreateToggle({
     end
 })
 
-local function notify(title, content, duration)
-    Rayfield:Notify({
-        Title = title,
-        Content = content,
-        Duration = duration or 0.7,
-        Image = 10010348543,
-    })
-end
-
-local ToggleParryOffPlus = AutoParry:CreateKeybind({
-   Name = "+ 10 range",
-   CurrentKeybind = "X",
-   HoldToInteract = false,
-   Flag = "ToggleParryOffPlus",
-   Callback = function()
-        if sliderValue < 200 then
-            sliderValue = sliderValue + 10
-            DistanceSlider:Set(sliderValue)
-            notify("Range Increased", "New Range: " .. sliderValue)
+local notifyparriedthing = AutoParry:CreateButton({
+    Name = "Enable/Disable Notify when parried",
+    Callback = function()
+        if not notifyparried == true then
+            notifyparried = true
+            notify("Auto Parry", "Auto Parry Notify when parried has been enabled", 0.7)
+        else
+            notifyparried = false
+            notify("Auto Parry", "Auto Parry Notify when parried has been disabled", 0.7)
         end
-   end,
-})
-
-local ToggleParryOffMinus = AutoParry:CreateKeybind({
-   Name = "- 10 range",
-   CurrentKeybind = "Z",
-   HoldToInteract = false,
-   Flag = "ToggleParryOffMinus",
-   Callback = function()
-        if sliderValue > 0 then
-            sliderValue = sliderValue - 10
-            DistanceSlider:Set(sliderValue)
-            notify("Range Decreased", "New Range: " .. sliderValue)
-        end
-   end,
-})
+    end,
+ })
 
 workspace:FindFirstChild("Alive").ChildRemoved:Connect(function()
     if #(workspace.Alive:GetChildren()) <= 1 and AutoGGToggle.CurrentValue and not ggdebounce then
