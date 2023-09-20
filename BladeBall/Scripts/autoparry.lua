@@ -192,9 +192,9 @@ local function checkBallDistance()
         return 
     end
 
-    if distanceToPlayer <= 10 then
+    if distanceToPlayer <= 15 then
         parryButtonPress:Fire()
-        task.wait()
+        task.wait(0.5)
     end
 
     if timeUntilImpact(ball.Velocity, distanceToPlayer, charVel) < getDynamicThreshold(ballVelocityTowardsPlayer) then
