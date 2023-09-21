@@ -44,14 +44,14 @@ local Window = Rayfield:CreateWindow({
  
 local ScriptOptions = Window:CreateTab("Options", 13014546637)
 
-local PingParry = AutoParry:CreateButton({
+local PingParry = ScriptOptions:CreateButton({
     Name = "Ping-Based Distance Parry",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernoKarl/opensrc/main/BladeBall/Scripts/autoparry-automatic.lua", true))()
  end,
 })
 
-local ManualParry = AutoParry:CreateButton({
+local ManualParry = ScriptOptions:CreateButton({
     Name = "Adjustable Distance Parry",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernoKarl/opensrc/main/BladeBall/Scripts/autoparry.lua", true))()
