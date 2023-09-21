@@ -1,59 +1,52 @@
-local UserInputService = game:GetService("UserInputService")
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
-local function isPlayerOnMobile()
-    if UserInputService.TouchEnabled and (UserInputService.KeyboardEnabled or UserInputService.GamepadEnabled) then
-        return false
-    end
-    
-    return UserInputService.TouchEnabled
-end
+local Window = Fluent:CreateWindow({
+    Title = "Blade Ball Initialization",
+    SubTitle = "by InfernoKarl",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = true,
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl
+})
 
-local Rayfield
+local Tabs = {
+    Options = Window:AddTab({ Title = "Options", Icon = "loader" }),
+}
 
-if isPlayerOnMobile() then
-    Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hosvile/Refinement/main/MC%3AArrayfield%20Library'))()
-else
-    Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-end
+local ScriptOptions = Tabs.Options
 
-local Window = Rayfield:CreateWindow({
-    Name = "Blade Ball Initialization",
-    LoadingTitle = "Inferno Scripts",
-    LoadingSubtitle = "by InfernoKarl",
-    ConfigurationSaving = {
-       Enabled = false,
-       FolderName = "Inferno Scripts",
-       FileName = "Inferno Scripts"
-    },
-    Discord = {
-       Enabled = true,
-       Invite = "hNX8VxcjMF",
-       RememberJoins = true
-    },
-    KeySystem = false,
-    KeySettings = {
-       Title = "Inferno Scripts",
-       Subtitle = "Key System",
-       Note = "Join the discord (discord.gg/hNX8VxcjMF)",
-       FileName = "InfernoKey",
-       SaveKey = true,
-       GrabKeyFromSite = false,
-       Key = "Hello"
-    }
- })
- 
-local ScriptOptions = Window:CreateTab("Options", 13014546637)
-
-local PingParry = ScriptOptions:CreateButton({
-    Name = "Ping-Based Distance Parry",
+local PingParry = ScriptOptions:AddButton({
+    Title = "Ping-Based Distance Parry",
+    Description = "Load Ping-Based Parry Script",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernoKarl/opensrc/main/BladeBall/Scripts/autoparry-automatic.lua", true))()
- end,
+        Window:Destroy()
+    end,
 })
 
-local ManualParry = ScriptOptions:CreateButton({
-    Name = "Adjustable Distance Parry",
+local ManualParry = ScriptOptions:AddButton({
+    Title = "Adjustable Distance Parry",
+    Description = "Load Adjustable Parry Script",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernoKarl/opensrc/main/BladeBall/Scripts/autoparry.lua", true))()
- end,
+        Window:Destroy() 
+    end,
 })
+
+
+SaveManager:SetLibrary(Fluent)
+InterfaceManager:SetLibrary(Fluent)
+
+
+Window:SelectTab(1)
+
+Fluent:Notify({
+    Title = "Blade Ball Initialization",
+    Content = "Choose a option.",
+    Duration = 8
+})
+
+SaveManager:LoadAutoloadConfig()
