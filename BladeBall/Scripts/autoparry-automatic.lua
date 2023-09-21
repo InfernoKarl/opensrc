@@ -5,8 +5,6 @@ local localPlayer = players.LocalPlayer
 local BASE_THRESHOLD = 0.2
 local VELOCITY_SCALING_FACTOR_FAST = 0.050
 local VELOCITY_SCALING_FACTOR_SLOW = 0.1
-local IMMEDIATE_PARRY_DISTANCE = 15
-local IMMEDIATE_HIGH_VELOCITY_THRESHOLD = 85
 local UserInputService = game:GetService("UserInputService")
 local responses = {"lol what", "??", "wdym", "bru what", "mad cuz bad", "skill issue", "cry"}
 local gameEndResponses = {"ggs", "gg :3", "good game", "ggs yall", "wp", "ggs man"}
@@ -84,6 +82,18 @@ local function notify(title, content, duration)
     })
 end
 
+local function getPlayerPing()
+    local ping = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()
+    return ping
+end
+
+local function mapPingToDistance(ping)
+    local multiplier = 0.15
+    local offset = 15
+    return math.min(100, math.max(0, ping * multiplier + offset))
+end
+
+
 local function chooseNewFocusedBall()
     local balls = ballsFolder:GetChildren()
     for _, ball in ipairs(balls) do
@@ -100,7 +110,7 @@ local function chooseNewFocusedBall()
     
     if focusedBall == nil then
         print("Debug: Could not find a ball that's the realBall or has a target.")
-        wait(1)
+        wait(3)
         chooseNewFocusedBall()
     end
     return focusedBall
@@ -145,6 +155,7 @@ local function updateDistanceVisualizer()
     end
 end
 
+
 local function checkIfTarget()
     for _, v in pairs(ballsFolder:GetChildren()) do
         if v:IsA("Part") and v.BrickColor == BrickColor.new("Really red") then 
@@ -158,7 +169,6 @@ end
 local function isCooldownInEffect(uigradient)
     return uigradient.Offset.Y < 0.5
 end
-
 
 local function checkBallDistance()
     if not character or not checkIfTarget() then return end
@@ -178,10 +188,13 @@ local function checkBallDistance()
     local ball = focusedBall
     local distanceToPlayer = (ball.Position - charPos).Magnitude
     local ballVelocityTowardsPlayer = ball.Velocity:Dot((charPos - ball.Position).Unit)
-    
-    if distanceToPlayer < 15 then
+    if ball.zoomies.VectorVelocity == nil or (ball.zoomies.VectorVelocity.x == -0 or ball.zoomies.VectorVelocity.x == 0 or ball.zoomies.VectorVelocity.y == -0 or ball.zoomies.VectorVelocity.y == 0 or ball.zoomies.VectorVelocity.z == -0 or ball.zoomies.VectorVelocity.z == 0) then
+        return 
+    end
+
+    if distanceToPlayer <= 15 then
         parryButtonPress:Fire()
-        task.wait()
+        task.wait(0.5)
     end
 
     if timeUntilImpact(ball.Velocity, distanceToPlayer, charVel) < getDynamicThreshold(ballVelocityTowardsPlayer) then
@@ -203,7 +216,7 @@ local function checkBallDistance()
             if notifyparried == true then
                 notify("Auto Parry", "Automatically Parried Ball", 0.3)
             end
-            task.wait(0.3)
+            task.wait(0.5)
         end
     end
 end
@@ -211,12 +224,14 @@ end
 
 local function autoParryCoroutine()
     while isRunning do
+        local ping = getPlayerPing()
+        sliderValue = mapPingToDistance(ping)
+        
         checkBallDistance()
         updateDistanceVisualizer()
         task.wait()
     end
 end
-
 
 
 localPlayer.CharacterAdded:Connect(function(newCharacter)
@@ -300,18 +315,6 @@ local CloseFighting = AutoParry:CreateSection("Close Fighting")
 
 local Configuration = AutoParry:CreateSection("Configuration")
 
-local DistanceSlider = AutoParry:CreateSlider({
-    Name = "Distance Configuration",
-    Range = {0, 100},
-    Increment = 1,
-    Suffix = "Distance",
-    CurrentValue = 20,
-    Flag = "DistanceSlider",
-    Callback = function(Value)
-        sliderValue = Value
-    end,
- })
-
 local ToggleParryOn = AutoParry:CreateKeybind({
    Name = "Toggle Parry On (Bind)",
    CurrentKeybind = "One",
@@ -335,33 +338,6 @@ local ToggleParryOff = AutoParry:CreateKeybind({
    end,
 })
 
-local ToggleParryOffPlus = AutoParry:CreateKeybind({
-    Name = "+ 10 range",
-    CurrentKeybind = "X",
-    HoldToInteract = false,
-    Flag = "ToggleParryOffPlus",
-    Callback = function()
-         if sliderValue < 200 then
-             sliderValue = sliderValue + 10
-             DistanceSlider:Set(sliderValue)
-             notify("Range Increased", "New Range: " .. sliderValue)
-         end
-    end,
- })
- 
- local ToggleParryOffMinus = AutoParry:CreateKeybind({
-    Name = "- 10 range",
-    CurrentKeybind = "Z",
-    HoldToInteract = false,
-    Flag = "ToggleParryOffMinus",
-    Callback = function()
-         if sliderValue > 0 then
-             sliderValue = sliderValue - 10
-             DistanceSlider:Set(sliderValue)
-             notify("Range Decreased", "New Range: " .. sliderValue)
-         end
-    end,
- })
 
 local AutoGGToggle = AutoParry:CreateToggle({
     Name = "Auto GG",
@@ -391,30 +367,6 @@ local notifyparriedthing = AutoParry:CreateButton({
             notifyparried = false
             notify("Auto Parry", "Auto Parry Notify when parried has been disabled", 0.7)
         end
-    end,
- })
-
- local ChangeDistanceTo30thing = AutoParry:CreateKeybind({
-    Name = "Distance 30",
-    CurrentKeybind = "V",
-    HoldToInteract = false,
-    Flag = "Distanceto100", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Keybind)
- DistanceSlider:Set(30) -- The new slider integer value
- sliderValue = 30
- notify("Range Set", "New Range: " .. sliderValue)
-    end,
- })
- 
- local ChangeDistanceTo100thing = AutoParry:CreateKeybind({
-    Name = "Distance 100",
-    CurrentKeybind = "B",
-    HoldToInteract = false,
-    Flag = "Distanceto100", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Keybind)
-     sliderValue = 100
- DistanceSlider:Set(100) -- The new slider integer value
- notify("Range Set", "New Range: " .. sliderValue)
     end,
  })
 
